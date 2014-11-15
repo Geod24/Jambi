@@ -20,7 +20,7 @@ struct parser_s
   return -1; \
   }
 #define READ_WORD(b, o, inst, member) \
-  if (read_word(b, o+_offset_ptr(__typeof__(inst), member) , &inst->member) != 0) { \
+  if (read_word(b, o+_offset(__typeof__(*inst), member) , &inst->member) != 0) { \
   printf("Error reading word\n"); \
   return -1; \
   }
@@ -38,8 +38,10 @@ struct parser_s
 typedef struct parser_s parser_t;
 
 parser_t *parse_from_file(const char *file_path);
-int parse_header(parser_t *parser);
+int parse_header(parser_t *parser, buffer_t **remaining);
 int parse_nt_header(buffer_t *ntbuf, nt_header_32_t *header);
 int parse_file_header(buffer_t *b, file_header_t *header);
+
+int read_optional_header_64(buffer_t *b, optional_header_64_t *header);
 
 void parser_destroy(parser_t **ptr);
