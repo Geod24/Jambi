@@ -3,9 +3,18 @@
 
 NAME=	jambi
 vpath %.c src/
-SRC=	main.c parser.c read_file.c magic.c
+SRC=	parser.c \
+	read_file.c \
+	magic.c
 OBJDIR=objs
 OBJS=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
+
+# Main source file.
+MAINSRC=main.c
+MAINOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
+# For testing purpose.
+TESTSRC=test.c
+TESTOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
 
 CFLAGS= -W -Wall
 
@@ -14,8 +23,11 @@ CC=gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJDIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(NAME): $(OBJDIR) $(OBJS) $(MAINOBJ)
+	$(CC) $(CFLAGS) $(OBJS) $(MAINOBJ) -o $(NAME)
+
+test:	$(OBJDIR) $(OBJS) $(TESTOBJ)
+	$(CC) $(CFLAGS) $(OBJS) $(TESTOBJ) -o $(NAME)
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
