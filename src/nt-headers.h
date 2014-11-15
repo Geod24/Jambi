@@ -6,6 +6,9 @@
 extern const uint16_t MZ_MAGIC;
 extern const uint32_t NT_MAGIC;
 
+extern const uint16_t NT_OPTIONAL_32_MAGIC;
+extern const uint16_t NT_OPTIONAL_64_MAGIC;
+
 struct dos_header {
   uint16_t e_magic;
   uint16_t e_cblp;
