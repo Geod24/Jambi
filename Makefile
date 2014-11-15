@@ -16,10 +16,10 @@ MAINOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(MAINSRC))
 TESTSRC=test.c
 TESTOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(TESTSRC))
 
-CFLAGS= -W -Wall
+CFLAGS= -W -Wall -std=c99
 
 RM=rm -rf
-CC=gcc
+CC=x86_64-w64-mingw32-gcc.exe
 
 all: $(NAME)
 

@@ -1,9 +1,17 @@
 #include <string.h>
+#include <unistd.h>
+#include <direct.h>
+#include <stdlib.h>
+#include <stdio.h>
 
+/// D FTW
 typedef struct s_String {
   char* ptr;
   size_t length;
 } String;
+
+// Decalarations
+int runInfector(String* directory);
 
 int main(int ac, char** args) {
   // I miss foreach :(
@@ -15,7 +23,7 @@ int main(int ac, char** args) {
       return 1;
   }
   if (ac < 2) {
-    dir.ptr = getcwd();
+    dir.ptr = _getcwd(NULL, 0);
     dir.length = strlen(dir.ptr);
     return runInfector(&dir);
   }
