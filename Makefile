@@ -11,10 +11,10 @@ OBJS=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
 
 # Main source file.
 MAINSRC=main.c
-MAINOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
+MAINOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(MAINSRC))
 # For testing purpose.
 TESTSRC=test.c
-TESTOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
+TESTOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(TESTSRC))
 
 CFLAGS= -W -Wall
 
