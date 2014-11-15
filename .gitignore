@@ -1,0 +1,9 @@
+# Objects
+
+*.exe
+*.o
+*.obj
+*.dll
+
+# We work on emacs Bro !
+*~
