@@ -1,5 +1,6 @@
 #include <assert.h>
 #include "read_file.h"
+#include <stdio.h>
 
 /**
  * Read a byte from buffer at offset and store it in out;
@@ -65,12 +66,14 @@ buffer_t *readFileToFileBuffer(const char *filePath)
 			 NULL);
   if(h == INVALID_HANDLE_VALUE)
     {
+      printf("Invalid Handle (cannot open file)\n");
       return NULL;
     }
   
   DWORD fileSize = GetFileSize(h, NULL);
   if(fileSize == INVALID_FILE_SIZE)
     {
+      printf("Invalid file size\n");
       CloseHandle(h);
       return NULL;
     }
@@ -86,14 +89,15 @@ buffer_t *readFileToFileBuffer(const char *filePath)
   HANDLE hMap = CreateFileMapping(h, NULL, PAGE_READONLY, 0, 0, NULL);
   if(hMap == NULL)
     {
+      printf("CreateFileMapping failed.\n");
       buffer_destroy(&buf);
-      CloseHandle(h);
       return NULL;
     }
   buf->file_map = hMap;
   LPVOID ptr = MapViewOfFile(hMap, FILE_MAP_READ, 0, 0, 0);
   if(ptr == NULL)
     {
+      printf("MapViewOfFile failed.\n");
       buffer_destroy(&buf);
       return NULL;
     }

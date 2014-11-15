@@ -15,7 +15,7 @@ parser_t *parse_from_file(const char *file_path)
   int ret = parse_header(parser);
   assert(ret == 0);
 
-  return 0;
+  return parser;
 }
 
 int parse_header(parser_t *parser)
@@ -29,12 +29,12 @@ int parse_header(parser_t *parser)
   // check MZ_MAGIC
   if (read_word(file, current_offset, &tmp) != 0)
     {
-      printf("Cannot read MZ_Magic");
+      printf("Cannot read MZ_Magic\n");
       return -1;
     }
   if (tmp != MZ_MAGIC)
     {
-      printf("MZ_MAGIC doesn't match");
+      printf("MZ_MAGIC doesn't match\n");
       return -1;
     }
   return 0;
