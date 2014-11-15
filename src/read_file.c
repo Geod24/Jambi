@@ -80,7 +80,7 @@ buffer_t *readFileToFileBuffer(const char *filePath)
 
   buffer_t *buf = malloc(sizeof(buffer_t));
   buf->is_copy = 0;
-  bzero(buf, sizeof(buffer_t));
+  memset(buf, 0, sizeof(buffer_t));
   if (!buf)
     {
       CloseHandle(h);
