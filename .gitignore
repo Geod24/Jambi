@@ -4,3 +4,6 @@
 *.o
 *.obj
 *.dll
+
+# This should never be pushed
+src/test.c
