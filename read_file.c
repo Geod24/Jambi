@@ -22,6 +22,7 @@ buffer_t *readFileToFileBuffer(const char *filePath)
     }
 
   buffer_t *buf = malloc(sizeof(buffer_t));
+  bzero(buf, sizeof(buffer_t));
   if (!buf)
     {
       CloseHandle(h);
