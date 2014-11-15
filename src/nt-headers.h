@@ -1,6 +1,8 @@
 #pragma once
 #include <stdint.h>
 
+#define _offset(t, f) ((uint32_t)(ptrdiff_t)&(((t*)0)->f))
+
 extern const uint16_t MZ_MAGIC;
 extern const uint32_t NT_MAGIC;
 

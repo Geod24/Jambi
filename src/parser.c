@@ -37,6 +37,17 @@ int parse_header(parser_t *parser)
       printf("MZ_MAGIC doesn't match\n");
       return -1;
     }
+
+  // offset of NT header
+  uint32_t offset;
+
+  if (read_dword(file, _offset(dos_header_t, e_lfanew), &offset) != 0)
+    {
+      printf("Cannot read offset of NT header\n");
+      return -1;
+    }
+  
+  current_offset += offset; 
   return 0;
 }
 

@@ -79,6 +79,7 @@ buffer_t *readFileToFileBuffer(const char *filePath)
     }
 
   buffer_t *buf = malloc(sizeof(buffer_t));
+  buf->is_copy = 0;
   bzero(buf, sizeof(buffer_t));
   if (!buf)
     {
@@ -113,8 +114,25 @@ void buffer_destroy(buffer_t **ptr)
   
   if (!me)
     return;
-  CloseHandle(me->file);
-  CloseHandle(me->file_map);
+  if (!me->is_copy)
+    {
+      CloseHandle(me->file);
+      CloseHandle(me->file_map);
+    }
   free(me);
   *ptr = NULL;
+}
+
+buffer_t *split_buffer(buffer_t *b, uint32_t from, uint32_t to)
+{
+  assert(b);
+  assert(!(to < from || to > b->len));
+	 
+  buffer_t *newBuff = malloc(sizeof(buffer_t));
+  assert(buffer_t);
+  
+  newBuff->is_copy = 1;
+  newBuff->buf = b->buf+from;
+  newBuff->len = (to-from);
+  return newBuff;
 }
