@@ -30,7 +30,7 @@ int read_word(buffer_t *buffer, uint32_t offset, uint16_t *out)
 /**
  * Read a word (4 bytes) from buffer at offset and store them in out;
  */
-int read_dword(buffer_t *buffer, uint32_t offset, uint16_t *out)
+int read_dword(buffer_t *buffer, uint32_t offset, uint32_t *out)
 {
   assert(buffer);
   if (offset >= buffer->len)
@@ -43,7 +43,7 @@ int read_dword(buffer_t *buffer, uint32_t offset, uint16_t *out)
 /**
  * Read a word (8 bytes) from buffer at offset and store them in out;
  */
-int read_qword(buffer_t *buffer, uint32_t offset, uint16_t *out)
+int read_qword(buffer_t *buffer, uint32_t offset, uint64_t *out)
 {
   assert(buffer);
   if (offset >= buffer->len)
@@ -55,6 +55,7 @@ int read_qword(buffer_t *buffer, uint32_t offset, uint16_t *out)
 
 buffer_t *readFileToFileBuffer(const char *filePath)
 {
+  assert(filePath);
   HANDLE h = CreateFileA(filePath,
 			 GENERIC_READ,
 			 0,
