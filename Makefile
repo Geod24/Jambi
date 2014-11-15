@@ -3,7 +3,7 @@
 
 NAME=	jambi
 vpath %.c src/
-SRC=	main.c
+SRC=	main.c parser.c read_file.c magic.c
 OBJDIR=objs
 OBJS=$(patsubst %.c,$(OBJDIR)/%.o,$(SRC))
 
