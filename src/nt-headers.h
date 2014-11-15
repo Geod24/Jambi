@@ -26,6 +26,8 @@ struct dos_header {
   uint32_t e_lfanew;
 };
 
+typedef struct dos_header dos_header_t;
+
 struct file_header {
   uint16_t Machine;
   uint16_t NumberOfSections;
