@@ -118,8 +118,8 @@ int parse_nt_header(buffer_t *ntbuf, nt_header_32_t *header)
       printf("Invalid NT MAGIC\n");
       return -1;
     }
-  destroy_buffer(&fhb);
-  destroy_buffer(&ohb);
+  buffer_destroy(&fhb);
+  buffer_destroy(&ohb);
 }
 
 int parse_file_header(buffer_t *b, file_header_t *header)
