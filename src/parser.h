@@ -15,12 +15,12 @@ struct parser_s
 };
 
 #define READ_BYTE(b, o, inst, member) \
-  if (read_byte(b, o+_offset(__typeof__(*inst), member), &inst->member) != 0) { \
+  if(read_byte(b, o+_offset(__typeof__(*inst), member), &inst->member) != 0) { \
   printf("Error reading byte\n"); \
   return -1; \
   }
 #define READ_WORD(b, o, inst, member) \
-  if (read_word(b, o+_offset(__typeof__(*inst), member), &inst->member) != 0) { \
+  if (read_word(b, o+_offset_ptr(__typeof__(inst), member) , &inst->member) != 0) { \
   printf("Error reading word\n"); \
   return -1; \
   }

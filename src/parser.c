@@ -94,7 +94,9 @@ int parse_nt_header(buffer_t *ntbuf, nt_header_32_t *header)
   /*
    * Read the Magic to determine if it is 32 or 64.
    */
-  READ_WORD(ohb, 0, header, OptionalMagic);
+      READ_WORD(ohb, 0, header, OptionalMagic);
+    int ret = read_word(ohb, 0, &header->OptionalMagic);
+    assert(ret == 0);
   if (header->OptionalMagic == NT_OPTIONAL_32_MAGIC)
     {
       printf("Sorry 32bits\n");
@@ -120,19 +122,21 @@ int parse_nt_header(buffer_t *ntbuf, nt_header_32_t *header)
     }
   buffer_destroy(&fhb);
   buffer_destroy(&ohb);
+  return 0;
 }
 
 int parse_file_header(buffer_t *b, file_header_t *header)
 {
-  READ_WORD(b, 0, header, Machine);
+  /*  READ_WORD(b, 0, header, Machine);
   READ_WORD(b, 0, header, NumberOfSections);
   READ_DWORD(b, 0, header, TimeDateStamp);
   READ_DWORD(b, 0, header, PointerToSymbolTable);
   READ_DWORD(b, 0, header, NumberOfSymbols);
   READ_WORD(b, 0, header, SizeOfOptionalHeader);
   READ_WORD(b, 0, header, Characteristics);
-
+  */
   return 0;
+  
 }
 
 void parser_destroy(parser_t **ptr)

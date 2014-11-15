@@ -19,7 +19,7 @@ TESTOBJ=$(patsubst %.c,$(OBJDIR)/%.o,$(TESTSRC))
 CFLAGS= -W -Wall -std=c99
 
 RM=rm -rf
-CC=x86_64-w64-mingw32-gcc.exe
+CC=gcc
 
 all: $(NAME)
 
