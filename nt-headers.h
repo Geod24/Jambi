@@ -1,9 +1,8 @@
 #pragma once
 #include <stdint.h>
 
-
-const uint16_t MZ_MAGIC = 0x5A4D;
-const uint32_t NT_MAGIC = 0x00004550;
+extern const uint16_t MZ_MAGIC;
+extern const uint32_t NT_MAGIC;
 
 struct dos_header {
   uint16_t e_magic;
@@ -42,3 +41,11 @@ struct data_directory {
   uint32_t Size;
 };
 
+
+struct nt_header_32 {
+  int32_t Signature;
+  struct file_header FileHeader;
+  //  optional_header_32 OptionalHeader;
+  //  optional_header_64 OptionalHeader64;
+  uint16_t OptionalMagic;
+};
