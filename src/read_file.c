@@ -129,7 +129,7 @@ buffer_t *split_buffer(buffer_t *b, uint32_t from, uint32_t to)
   assert(!(to < from || to > b->len));
 	 
   buffer_t *newBuff = malloc(sizeof(buffer_t));
-  assert(buffer_t);
+  assert(newBuff);
   
   newBuff->is_copy = 1;
   newBuff->buf = b->buf+from;

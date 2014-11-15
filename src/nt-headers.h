@@ -53,3 +53,5 @@ struct nt_header_32 {
   //  optional_header_64 OptionalHeader64;
   uint16_t OptionalMagic;
 };
+
+typedef struct nt_header_32 nt_header_32_t;
