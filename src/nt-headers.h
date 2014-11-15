@@ -40,6 +40,8 @@ struct file_header {
   uint16_t Characteristics;
 };
 
+typedef struct file_header file_header_t;
+
 struct data_directory {
   uint32_t VirtualAddress;
   uint32_t Size;

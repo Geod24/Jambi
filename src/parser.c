@@ -76,51 +76,62 @@ int parse_nt_header(buffer_t *ntbuf, nt_header_32_t *header)
   buffer_t *fhb = split_buffer(ntbuf,
 			       _offset(nt_header_32_t, FileHeader), ntbuf->len);
   assert(fhb);
-  /////
-  //  if(readFileHeader(fhb, header->FileHeader) == false) {
-  //    deleteBuffer(fhb);
-  //    return false;
-  //  }
+  
+  if(parse_file_header(fhb, &header->FileHeader) != 0)
+    {
+      buffer_destroy(&fhb);
+      return -1;
+    }
   /*
    * The buffer is split using the OptionalHeader offset, even if it turns
    * out to be a PE32+. The start of the buffer is at the same spot in the
    * buffer regardless.
    */
-  /*  bounded_buffer *ohb =
-    splitBuffer(b, _offset(nt_header_32, OptionalHeader), ntbuf->len);
-  if(ohb == NULL) {
-    deleteBuffer(fhb);
-    PE_ERR(PEERR_MEM);
-    return false;
-    }*/
+  buffer_t *ohb =
+    split_buffer(ntbuf, _offset(nt_header_32_t, OptionalHeader), ntbuf->len);
+  assert(ohb);
+  
   /*
    * Read the Magic to determine if it is 32 or 64.
    */
-  /*
-  if (readWord(ohb, 0, header->OptionalMagic) == false) {
-    PE_ERR(PEERR_READ);
-    return false;
-  }
-  if (header->OptionalMagic == NT_OPTIONAL_32_MAGIC) {
-    if(readOptionalHeader(ohb, header->OptionalHeader) == false) {
-      deleteBuffer(ohb);
-      deleteBuffer(fhb);
-      return false;
+  READ_WORD(ohb, 0, header, OptionalMagic);
+  if (header->OptionalMagic == NT_OPTIONAL_32_MAGIC)
+    {
+      printf("Sorry 32bits\n");
+      return -1;
+      //    if(readOptionalHeader(ohb, header->OptionalHeader) == false) {
+      //      deleteBuffer(ohb);
+      //      deleteBuffer(fhb);
+      //      return false;
+      //    }
     }
-  } else if (header->OptionalMagic == NT_OPTIONAL_64_MAGIC) {
-    if(readOptionalHeader64(ohb, header->OptionalHeader64) == false) {
-      deleteBuffer(ohb);
-      deleteBuffer(fhb);
-      return false;
+  else if (header->OptionalMagic == NT_OPTIONAL_64_MAGIC)
+    {
+      //    if(readOptionalHeader64(ohb, header->OptionalHeader64) == false) {
+      //      deleteBuffer(ohb);
+      //      deleteBuffer(fhb);
+      //      return false;
+      printf("Ok, 64 bits\n");
     }
-  } else {
-    PE_ERR(PEERR_MAGIC);
-    return false;
-  }
-  deleteBuffer(ohb);
-  deleteBuffer(fhb);
-  return true;
-  */
+  else
+    {
+      printf("Invalid NT MAGIC\n");
+      return -1;
+    }
+  destroy_buffer(&fhb);
+  destroy_buffer(&ohb);
+}
+
+int parse_file_header(buffer_t *b, file_header_t *header)
+{
+  READ_WORD(b, 0, header, Machine);
+  READ_WORD(b, 0, header, NumberOfSections);
+  READ_DWORD(b, 0, header, TimeDateStamp);
+  READ_DWORD(b, 0, header, PointerToSymbolTable);
+  READ_DWORD(b, 0, header, NumberOfSymbols);
+  READ_WORD(b, 0, header, SizeOfOptionalHeader);
+  READ_WORD(b, 0, header, Characteristics);
+
   return 0;
 }
 
