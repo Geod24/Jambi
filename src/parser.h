@@ -17,5 +17,6 @@ struct parser_s
 typedef struct parser_s parser_t;
 
 parser_t *parse_from_file(const char *file_path);
+int parse_header(parser_t *parser);
 
 void parser_destroy(parser_t **ptr);
