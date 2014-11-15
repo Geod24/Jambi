@@ -8,6 +8,7 @@ struct buffer_s
   uint8_t *buf;
   uint32_t len;
   HANDLE file;
+  HANDLE file_map;
 };
 
 typedef struct buffer_s buffer_t;

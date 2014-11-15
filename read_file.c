@@ -1,4 +1,57 @@
+#include <assert.h>
 #include "read_file.h"
+
+/**
+ * Read a byte from buffer at offset and store it in out;
+ */
+int read_byte(buffer_t *buffer, uint32_t offset, uint8_t *out)
+{
+  assert(buffer);
+  if (offset >= buffer->len)
+    return -1;
+
+  *out = *(buffer->buf + offset);
+  return 0;
+}
+
+/**
+ * Read a word (2 bytes) from buffer at offset and store them in out;
+ */
+int read_word(buffer_t *buffer, uint32_t offset, uint16_t *out)
+{
+  assert(buffer);
+  if (offset >= buffer->len)
+    return -1;
+
+  *out = *(uint16_t *)(buffer->buf + offset);
+  return 0;
+}
+
+/**
+ * Read a word (4 bytes) from buffer at offset and store them in out;
+ */
+int read_dword(buffer_t *buffer, uint32_t offset, uint16_t *out)
+{
+  assert(buffer);
+  if (offset >= buffer->len)
+    return -1;
+
+  *out = *(uint32_t *)(buffer->buf + offset);
+  return 0;
+}
+
+/**
+ * Read a word (8 bytes) from buffer at offset and store them in out;
+ */
+int read_qword(buffer_t *buffer, uint32_t offset, uint16_t *out)
+{
+  assert(buffer);
+  if (offset >= buffer->len)
+    return -1;
+
+  *out = *(uint64_t *)(buffer->buf + offset);
+  return 0;
+}
 
 buffer_t *readFileToFileBuffer(const char *filePath)
 {
@@ -44,7 +97,7 @@ buffer_t *readFileToFileBuffer(const char *filePath)
       return NULL;
     }
   buf->buf = (uint8_t *)ptr;
-  p->bufLen = fileSize;
+  buf->len = fileSize;
   return buf;
 }
 
